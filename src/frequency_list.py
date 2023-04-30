@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 from pydantic import BaseModel
 import requests
 
+from config import AppConfig
+
 URL="https://en.wiktionary.org/wiki/User:Matthias_Buchmeier/German_frequency_list-1-5000"
 
 class FrequencyListEntry(BaseModel):
@@ -28,3 +30,12 @@ def save_frequency_list(frequency_list: list[FrequencyListEntry], path: str):
 def open_local_frequency_list(path: str) -> list[FrequencyListEntry]:
     with open(path, 'r') as file:
         return [FrequencyListEntry(frequency=int(line.split(' ')[0]), word=line.split(' ')[1].strip()) for line in file.readlines()]
+    
+
+def load_frequency_list() -> list[FrequencyListEntry]:
+    try:
+        frequency_list = open_local_frequency_list(path=AppConfig().frequency_list_path)
+    except FileNotFoundError:
+        frequency_list = retrieve_frequency_list()
+        save_frequency_list(frequency_list=frequency_list, path= AppConfig().frequency_list_path)
+    return frequency_list
