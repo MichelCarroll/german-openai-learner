@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "german-ai-learning"
+version = "0.1.0"
+description = ""
+authors = ["Michel Carroll <carrmi.0@gmail.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+click = "^8.1.3"
+openai = "^0.27.5"
+python-dotenv = "^1.0.0"
+pydantic = "^1.10.7"
+beautifulsoup4 = "^4.12.2"
+requests = "^2.29.0"
+spacy = "^3.5.2"
+spacy-download = "^1.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
